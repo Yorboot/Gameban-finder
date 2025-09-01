@@ -11,7 +11,11 @@ import (
 func main() {
 	steamid := ""
 	for {
-		APIKEY := os.Getenv("APIKEY")
+		APIKEY := helpers.GetApiKey()
+		if APIKEY == "" {
+			println("APIKEY environment variable not set")
+			break
+		}
 		println("Welcome to Gamebanfinder import the steamid below")
 		input := bufio.NewScanner(os.Stdin)
 		for input.Scan() {

@@ -37,6 +37,7 @@ func GetFriends(steamid string, APIKey string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println(resp)
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
@@ -57,6 +58,7 @@ func GetFriends(steamid string, APIKey string) ([]string, error) {
 func CheckBans(friendids []string, APIKey string) ([]PlayerBan, error) {
 	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=%s&steamids=%s", APIKey, strings.Join(friendids, ","))
 	resp, err := http.Get(url)
+	fmt.Println(resp)
 	if err != nil {
 		return nil, err
 	}
@@ -73,10 +75,12 @@ func CheckBans(friendids []string, APIKey string) ([]PlayerBan, error) {
 	}
 	return bans.Players, nil
 }
-func getApiKey() string {
+func GetApiKey() string {
+	// godotenv.Overload("")
 	err := godotenv.Load()
 	if err != nil {
+		fmt.Print(err)
 		log.Fatal("Error loading .env file")
 	}
-	return os.Getenv("API_KEY")
+	return os.Getenv("STEAM_API_KEY")
 }
