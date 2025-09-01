@@ -1,8 +1,9 @@
-package Gamebanfinder
+package main
 
 import (
 	//"Gamebanfinder/helpers"
 	"bufio"
+	"fmt"
 	"os"
 )
 
@@ -13,7 +14,10 @@ func main() {
 		input := bufio.NewScanner(os.Stdin)
 		for input.Scan() {
 			steamid = input.Text()
-			println(steamid)
+			if len(steamid) != 17 {
+				fmt.Errorf("invalid steamid should be 17 characters long")
+			}
+			println(len(steamid))
 		}
 	}
 	//Friends, err = getFriends()
