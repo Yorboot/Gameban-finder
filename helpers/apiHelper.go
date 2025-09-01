@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 )
 
 type FriendListResponse struct {
@@ -46,5 +47,6 @@ func getFriends(steamid string, APIKey string) ([]string, error) {
 	return friends, nil
 }
 func checkBans(friendids []string) ([]Playerban, error) {
-
+	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=%s&steamids=%s", APIKey, strings.Join(steamids, ","))
+	resp, err := http.Get(url)
 }
