@@ -15,7 +15,8 @@ func main() {
 		for input.Scan() {
 			steamid = input.Text()
 			if len(steamid) != 17 {
-				fmt.Errorf("invalid steamid should be 17 characters long")
+				fmt.Println("Invalid steamid should be 17 numbers long")
+				break
 			}
 			println(len(steamid))
 		}
