@@ -3,8 +3,11 @@ package helpers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/joho/godotenv"
 	"io"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -28,10 +31,6 @@ type PlayerBansResponse struct {
 	Players []PlayerBan `json:"players"`
 }
 
-const (
-	APIKEY = ""
-)
-
 func GetFriends(steamid string, APIKey string) ([]string, error) {
 	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=%s&steamid=%s&relationship=friend", APIKey, steamid)
 	resp, err := http.Get(url)
@@ -41,7 +40,7 @@ func GetFriends(steamid string, APIKey string) ([]string, error) {
 	defer func(Body io.ReadCloser) {
 		err := Body.Close()
 		if err != nil {
-
+			fmt.Println(err)
 		}
 	}(resp.Body)
 	body, _ := io.ReadAll(resp.Body)
@@ -73,4 +72,11 @@ func CheckBans(friendids []string, APIKey string) ([]PlayerBan, error) {
 		return nil, err
 	}
 	return bans.Players, nil
+}
+func getApiKey() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	return os.Getenv("API_KEY")
 }
