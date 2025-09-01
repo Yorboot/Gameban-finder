@@ -32,7 +32,7 @@ const (
 	APIKEY = ""
 )
 
-func getFriends(steamid string, APIKey string) ([]string, error) {
+func GetFriends(steamid string, APIKey string) ([]string, error) {
 	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=%s&steamid=%s&relationship=friend", APIKey, steamid)
 	resp, err := http.Get(url)
 	if err != nil {
@@ -55,7 +55,7 @@ func getFriends(steamid string, APIKey string) ([]string, error) {
 	}
 	return friends, nil
 }
-func checkBans(friendids []string, APIKey string) ([]PlayerBan, error) {
+func CheckBans(friendids []string, APIKey string) ([]PlayerBan, error) {
 	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=%s&steamids=%s", APIKey, strings.Join(friendids, ","))
 	resp, err := http.Get(url)
 	if err != nil {
