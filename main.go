@@ -20,3 +20,6 @@ type PlayerBan struct {
 	DaysSinceLastBan int    `json:"DaysSinceLastBan"`
 	EconomyBan       string `json:"EconomyBan"`
 }
+type PlayerBansResponse struct {
+	Players []PlayerBan `json:"players"`
+}
