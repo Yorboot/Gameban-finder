@@ -1,5 +1,1 @@
 package Gamebanfinder
-
-const (
-	APIKEY = ""
-)

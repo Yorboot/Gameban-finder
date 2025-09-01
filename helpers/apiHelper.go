@@ -28,6 +28,10 @@ type PlayerBansResponse struct {
 	Players []PlayerBan `json:"players"`
 }
 
+const (
+	APIKEY = ""
+)
+
 func getFriends(steamid string, APIKey string) ([]string, error) {
 	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=%s&steamid=%s&relationship=friend", APIKey, steamid)
 	resp, err := http.Get(url)
