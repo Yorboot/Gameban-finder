@@ -34,7 +34,12 @@ func getFriends(steamid string, APIKey string) ([]string, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(resp.Body)
 	body, _ := io.ReadAll(resp.Body)
 	var data FriendListResponse
 	if err := json.Unmarshal(body, &data); err != nil {
@@ -49,4 +54,19 @@ func getFriends(steamid string, APIKey string) ([]string, error) {
 func checkBans(friendids []string) ([]Playerban, error) {
 	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=%s&steamids=%s", APIKey, strings.Join(steamids, ","))
 	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(resp.Body)
+	body, _ := io.ReadAll(resp.Body)
+	var bans PlayerBansResponse
+	if err := json.Unmarshal(body, &bans); err != nil {
+		return nil, err
+	}
+	return bans.Players, nil
 }
