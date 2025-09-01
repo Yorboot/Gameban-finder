@@ -14,6 +14,15 @@ type FriendListResponse struct {
 		} `json:"friends"`
 	} `json:"friendlist"`
 }
+type PlayerBan struct {
+	SteamId          string `json:"steamId"`
+	CommunityBanned  bool   `json:"community_banned"`
+	VACBanned        bool   `json:"vac_banned"`
+	NumberOfVACBans  int    `json:"NumberOfVACBans"`
+	NumberOfGameBans int    `json:"NumberOfGameBans"`
+	DaysSinceLastBan int    `json:"DaysSinceLastBan"`
+	EconomyBan       string `json:"EconomyBan"`
+}
 
 func getFriends(steamid string, APIKey string) ([]string, error) {
 	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=%s&steamid=%s&relationship=friend", APIKey, steamid)
