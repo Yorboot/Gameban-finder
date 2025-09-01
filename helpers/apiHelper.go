@@ -23,6 +23,9 @@ type PlayerBan struct {
 	DaysSinceLastBan int    `json:"DaysSinceLastBan"`
 	EconomyBan       string `json:"EconomyBan"`
 }
+type PlayerBansResponse struct {
+	Players []PlayerBan `json:"players"`
+}
 
 func getFriends(steamid string, APIKey string) ([]string, error) {
 	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetFriendList/v0001/?key=%s&steamid=%s&relationship=friend", APIKey, steamid)
@@ -41,4 +44,7 @@ func getFriends(steamid string, APIKey string) ([]string, error) {
 		friends = append(friends, friend.Steamid)
 	}
 	return friends, nil
+}
+func checkBans(friendids []string) ([]Playerban, error) {
+
 }
