@@ -55,8 +55,8 @@ func getFriends(steamid string, APIKey string) ([]string, error) {
 	}
 	return friends, nil
 }
-func checkBans(friendids []string) ([]Playerban, error) {
-	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=%s&steamids=%s", APIKey, strings.Join(steamids, ","))
+func checkBans(friendids []string, APIKey string) ([]PlayerBan, error) {
+	url := fmt.Sprintf("http://api.steampowered.com/ISteamUser/GetPlayerBans/v1/?key=%s&steamids=%s", APIKey, strings.Join(friendids, ","))
 	resp, err := http.Get(url)
 	if err != nil {
 		return nil, err
